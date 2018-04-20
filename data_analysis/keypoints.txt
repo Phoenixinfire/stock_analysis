@@ -1,0 +1,67 @@
+关键点总结。
+
+Tushare API分类：
+	复权数据
+	获得某只股票的上市日期
+	df = ts.get_stock_basics()
+date = df.ix['600848']['timeToMarket'] #上市日期YYYYMMDD
+	ts.get_h_data('002337', autype='qfq') #前复权，可以指定起止日期
+	返回：
+	date交易日期(index)
+	open开盘价
+	high最高价
+	close收盘价
+	low最低价
+	volume成交量
+	amount成交金额
+
+	ts.get_hist_data('600848') 相比上一个接口，可以增加返回换手率数据，只能获取最近三年的数据
+	get_k_data 也可以实现这个功能
+
+	一次获取所有股票实时行情
+	ts.get_today_all() 可以用于获取股票的代码，以便代入上面的API获取数据
+
+	历史分比数据
+	获取个股以往交易历史的分笔数据明细，通过分析分笔数据，可以大致判断资金的进出情况。在使用过程中，对于获取股票某一阶段的历史分笔数据，需要通过参入交易日参数并append到一个DataFrame或者直接append到本地同一个文件里。历史分笔接口只能获取当前交易日之前的数据，当日分笔历史数据请调用get_today_ticks()接口或者在当日18点后通过本接口获取。
+	df = ts.get_tick_data('600848',date='2014-01-09')
+
+ time       price change  volume  amount  type
+0    15:00:00   6.05     --       8    4840   卖盘
+1    14:59:55   6.05     --      50   30250   卖盘
+2    14:59:35   6.05     --      20   12100   卖盘
+3    14:59:30   6.05  -0.01     165   99825   卖盘
+4    14:59:20   6.06   0.01       4    2424   买盘
+5    14:59:05   6.05  -0.01       2    1210   卖盘
+6    14:58:55   6.06     --       4    2424   买盘
+7    14:58:45   6.06     --       2    1212   买盘
+8    14:58:35   6.06   0.01       2    1212   买盘
+9    14:58:25   6.05  -0.01      20   12100   卖盘
+
+	当时历史分笔分笔数据
+	df = ts.get_today_ticks('601333')
+
+	历史大单
+	df = ts.get_sina_dd('600848', date='2015-12-24') #默认400手
+
+
+	sina获取概念板块的股票信息
+	ts.get_concept_classified()
+
+	sina财经对沪深股票进行的行业分类
+	获取行业板块的股票信息
+	ts.get_industry_classified()
+
+	还需要通过通过爬虫获得概念板块的涨幅信息。是一种泛增长的概念。可以把握趋势。
+
+	同花顺概念网址：
+	http://q.10jqka.com.cn/gn/
+
+	新浪概念：
+	http://vip.stock.finance.sina.com.cn/moneyflow/#blocktol_conc
+
+	scrapy
+	https://docs.scrapy.org/en/latest/intro/tutorial.html
+
+    龙虎榜数据：
+    ts.top_list('2016-06-12')
+    ts.broker_tops()
