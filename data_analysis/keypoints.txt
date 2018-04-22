@@ -15,8 +15,9 @@ date = df.ix['600848']['timeToMarket'] #上市日期YYYYMMDD
 	volume成交量
 	amount成交金额
 
-	ts.get_hist_data('600848') 相比上一个接口，可以增加返回换手率数据，只能获取最近三年的数据
-	get_k_data 也可以实现这个功能
+	ts.get_hist_data('600848') 不能获得复权数据，弃用
+	
+	get_k_data 也可以实现这个功能,相比上一个接口，可以增加返回换手率数据，只能获取最近三年的数据
 
 	一次获取所有股票实时行情
 	ts.get_today_all() 可以用于获取股票的代码，以便代入上面的API获取数据
@@ -52,6 +53,8 @@ date = df.ix['600848']['timeToMarket'] #上市日期YYYYMMDD
 	ts.get_industry_classified()
 
 	还需要通过通过爬虫获得概念板块的涨幅信息。是一种泛增长的概念。可以把握趋势。
+
+	TushareAPI地址：
 
 	同花顺概念网址：
 	http://q.10jqka.com.cn/gn/

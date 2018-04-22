@@ -14,7 +14,6 @@ from urllib import parse, request
 import tushare as ts
 
 import sys
-
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -22,12 +21,4 @@ sys.setdefaultencoding('utf-8')
 class AllShareCrawler():
     def __init__(self):
         pass
-        # name = "all_share_crawler"
-        # start_urls = [
-        #     'http://q.10jqka.com.cn/'
-        # ]
-        #
-        # def parse(self, response):
-        #     count = 0 #var in crawle
-        #     share_request_url = "http://q.10jqka.com.cn/index/index/board/all/field/zdf/order/desc/page/{}/ajax/1/".format(
-        #         count)
+        
