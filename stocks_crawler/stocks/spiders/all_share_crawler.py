@@ -13,9 +13,9 @@ import scrapy
 from urllib import parse, request
 import tushare as ts
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+#import sys
+#reload(sys)
+#sys.setdefaultencoding('utf-8')
 
 
 class AllShareCrawler():

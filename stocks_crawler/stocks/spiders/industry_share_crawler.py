@@ -14,10 +14,11 @@ import scrapy
 import time
 import codecs
 
-current_path = os.path.abspath(".")
-data_path = os.path.join(current_path, "../data")
+current_path = os.getcwd()
+data_path = os.path.abspath(os.path.dirname(os.getcwd())+"/../../data")
+print(data_path)
 
-if !os.path.exists(data_path):
+if not os.path.exists(data_path):
     os.makedirs(data_path)
 
 today_date_str = time.strftime("%Y-%m-%d", time.localtime())
@@ -44,9 +45,18 @@ class IndustryShareCrawler(scrapy.Spider):
 
         for index in industry_info:
             index_name = index.css("dt::text").extract_first()
-            index_data = index.css("dd::text").extract_first()
-            data_header.append(index_name)
-            one_row_data_value.append(index_data)
+            if index_name == "涨跌家数":
+                data_header.append("上涨家数")
+                data_header.append("下跌家数")
+                index_data = index.css("dd span::text").extract()
+                if len(index_data) == 0:
+                    one_row_data_value.extend(["", ""])
+                else:
+                    one_row_data_value.extend(index_data)
+            else:
+                index_data = index.css("dd::text").extract_first()
+                data_header.append(index_name)
+                one_row_data_value.append(index_data)
 
         if os.path.exists(u"{}/industry_share_data.csv".format(data_path)):
             with codecs.open(u"{}/industry_share_data.csv".format(data_path), 'a+', 'utf-8') as f:
